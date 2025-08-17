@@ -34,5 +34,6 @@ for step in range(5):
             out = smort.learn(inputs, target)
             print(f"inputs: {inputs}, target: {target}, output: {out:.3f}")
 
-print("\nFinal weights:", test.weights)
-print("Final bias:", test.bias)
+for smort in test:
+    print("\nFinal weights:", smort.weights)
+    print("Final bias:", smort.bias)
