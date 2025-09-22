@@ -13,7 +13,7 @@ def compare_result(new):
     print("verifying scores & past action...")
     print("[CURRENT SCORE]: ", past_score)
     time.sleep(.1)
-    if past_score < 0:
+    if past_score < -4:
         print("[...]")
         print("[OH MY GOD WHAT AM I DOING?? WHY IS THE SCORE SO LOW??]")
     if past_score > best_score:
@@ -93,3 +93,4 @@ time.sleep(1)
 #    print("kinda win? (generations needed: ",gens,")")
 #elif goals[0]>20 and goals[1]>10:
 #    print("kinda win? (generations needed: ",gens,")")
+
