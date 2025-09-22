@@ -1,0 +1,95 @@
+import random as rnd, time
+
+run=True
+
+actions=["left","up","right","down"]
+
+past_score=0
+best_score=-999999
+best_actions=[]
+
+def compare_result(new):
+    global best_score, best_actions
+    print("verifying scores & past action...")
+    print("[CURRENT SCORE]: ", past_score)
+    time.sleep(.1)
+    if past_score < 0:
+        print("[...]")
+        print("[OH MY GOD WHAT AM I DOING?? WHY IS THE SCORE SO LOW??]")
+    if past_score > best_score:
+        print(f"new best score! ({past_score}) action '{new}' added...\n")
+        best_score = past_score
+        best_actions.append(new)
+    else:
+        print(f"best score not updated, action '{new}' not added, continuing proccess...\n")
+class DLAI:
+    def __init__(self, generations=4, explore_rate=4, cooldown=.1):
+        self.er = explore_rate
+        self.gens = generations
+        self.cooldown = cooldown
+    def hmmm_i_have_no_idea_what_to_name_this(self):
+        global past_score, best_actions
+        if len(best_actions) > 0:
+            for obj in range(len(best_actions)):
+                time.sleep(self.cooldown)
+                explore_range = rnd.randint(0, 50)
+                if explore_range < 40:
+                    print("used passed action: ", best_actions[obj])
+                elif explore_range > 40:
+                    print("[hmm you know what? ima explore a little, what could POSSIBLY go wrong???]")
+                    for i in range(self.er):
+                        time.sleep(self.cooldown)
+                        new_move = actions[rnd.randint(0, len(actions) - 1)]
+                        past_score += rnd.randint(-2, 2)
+                        compare_result(new_move)
+
+                        if past_score > best_score:
+                            print("[oh wow it actually worked?? nice]")
+                            best_actions.append(new_move)
+                        else:
+                            print("[ok nevermind this one worse]")
+                            print("used passed action: ", best_actions[obj])
+        for gen in range(self.gens):
+            for i in range(self.er):
+                time.sleep(self.cooldown)
+                new_move = actions[rnd.randint(0, len(actions) - 1)]
+                past_score += rnd.randint(-2, 2)
+                compare_result(new_move)
+
+class gen_test:
+    def __init__(self):
+        pass
+    def start(self):
+        DLAI(4,4,.001).hmmm_i_have_no_idea_what_to_name_this()
+    def get_results(self):
+        global best_actions, best_score
+        print("\nresult (combination that took the generation to success):")
+        for obj in best_actions:
+            print(obj)
+    def end(self):
+        global best_actions, best_score, goals, past_score
+        print("\nfinal results (best score): ", best_score)
+        print("[TABLES CLEARED // SIMULATION 50% DONE]")
+        best_score = -9999
+        past_score = 0
+        best_actions=[]
+        print("[VARS CLEARED // SIMULATION 100% DONE]")
+        best_score = -9999
+        past_score = 0
+        best_actions=[]
+
+model=gen_test()
+gens=0
+model.start()
+model.get_results()
+gens+=1*4
+model.end()
+time.sleep(1)
+
+# scrapped goal thingy
+#if goals[0]==20 and goals[1]==10:
+#    print("win! (generations needed: ",gens,")")
+#elif goals[0]<20 and goals[1]<10:
+#    print("kinda win? (generations needed: ",gens,")")
+#elif goals[0]>20 and goals[1]>10:
+#    print("kinda win? (generations needed: ",gens,")")
